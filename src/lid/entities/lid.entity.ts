@@ -1,5 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Stage } from '../../stage/entities/stage.entity';
+import { LidStatus } from '../../lid_status/entities/lid_status.entity';
+import { Target } from '../../target/entities/target.entity';
+import { ReasonLid } from '../../reason_lid/entities/reason_lid.entity';
 
 @Entity()
 export class Lid {
@@ -15,7 +18,7 @@ export class Lid {
   @Column()
   phone_number: string;
 
-  @Column()
+  @ManyToOne(() => Target, (data) => data.targetId)
   target_id: number;
 
   @ManyToOne(() => Stage, (data) => data.stages)
@@ -33,9 +36,9 @@ export class Lid {
   @Column()
   trial_lesson_group_id: number;
 
-  @Column()
+  @ManyToOne(() => LidStatus, (data) => data.lidStatus)
   lid_status_id: number;
 
-  @Column()
+  @ManyToOne(() => ReasonLid, (data) => data.cancelReason)
   cancel_reson_id: number;
 }
