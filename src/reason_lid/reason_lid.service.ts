@@ -2,35 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { CreateReasonLidDto } from './dto/create-reason_lid.dto';
 import { UpdateReasonLidDto } from './dto/update-reason_lid.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { ReasonLid } from './entities/reason_lid.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ReasonLidService {
-  constructor(
-    @InjectRepository(ReasonLid)
-    private readonly reasonLidRepo: Repository<ReasonLid>,
-  ) {}
 
+  constructor(@InjectRepository(ReasonLid) private reasonLidRepo :Repository<ReasonLid>){}
   create(createReasonLidDto: CreateReasonLidDto) {
- const { reason_lid } = createReasonLidDto;
- return this.reasonLidRepo.save({
-   reason_lid,
- });  }
+        return this.reasonLidRepo.save(createReasonLidDto)
+  }
 
   findAll() {
-    return this.reasonLidRepo.find();
+    return this.reasonLidRepo.find({relations:{reasons_lid:true}})
   }
 
   findOne(id: number) {
-    return this.reasonLidRepo.findOneBy({ id });
+    return this.reasonLidRepo.findOneBy({id})
   }
 
-  update(id: number, updateReasonLidDto: UpdateReasonLidDto) {
-    return this.reasonLidRepo.update({ id }, updateReasonLidDto);
+ async  update(id: number, updateReasonLidDto: UpdateReasonLidDto) {
+    await this.reasonLidRepo.update({id},updateReasonLidDto)
+    return this.findOne(id)
   }
 
-  remove(id: number) {
-    return this.reasonLidRepo.delete({ id });
+  async remove(id: number) {
+   await this.reasonLidRepo.delete({id})  
+   return id
   }
 }

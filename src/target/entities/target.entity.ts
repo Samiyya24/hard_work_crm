@@ -1,13 +1,14 @@
-import { Column, Entity, OneToMany } from "typeorm";
-import { Lid } from "../../lid/entities/lid.entity";
+import { Lid } from "src/lid/entities/lid.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
 @Entity()
 export class Target {
-  @Column()
-  id: number;
-  @Column()
-  name: string;
+    @PrimaryGeneratedColumn()
+    id:number
 
-  @OneToMany(() => Lid, (data) => data.target_id)
-  targetId: Lid[];
+    @Column()
+    name:string
 
+    @OneToMany(()=>Lid,(data)=>data.target_id)
+    targets:Lid[]
 }

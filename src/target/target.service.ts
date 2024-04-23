@@ -2,36 +2,31 @@ import { Injectable } from '@nestjs/common';
 import { CreateTargetDto } from './dto/create-target.dto';
 import { UpdateTargetDto } from './dto/update-target.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Target } from './entities/target.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TargetService {
-  constructor(
-    @InjectRepository(Target)
-    private readonly targetRepo: Repository<Target>,
-  ) {}
+  constructor(@InjectRepository(Target) private targetRepo:Repository<Target>){}
   create(createTargetDto: CreateTargetDto) {
-    const { id, name } = createTargetDto;
-    return this.targetRepo.save({
-      id,
-      name,
-    });
+     return this.targetRepo.save(createTargetDto)
   }
 
   findAll() {
-    return this.targetRepo.find();
+    return this.targetRepo.find({relations:{targets:true}})
   }
 
   findOne(id: number) {
-    return this.targetRepo.findOneBy({ id });
+    return this.targetRepo.findOneBy({id})
   }
 
-  update(id: number, updateTargetDto: UpdateTargetDto) {
-    return this.targetRepo.update({ id }, updateTargetDto);
+  async update(id: number, updateTargetDto: UpdateTargetDto) {
+    await this.targetRepo.update({id},updateTargetDto)
+    return this.findOne(id)
   }
 
-  remove(id: number) {
-    return this.targetRepo.delete({ id });
+  async remove(id: number) {
+   await this.targetRepo.delete({id})
+   return id
   }
 }
