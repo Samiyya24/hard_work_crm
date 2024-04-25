@@ -10,7 +10,7 @@ export class StudentsService {
 constructor(@InjectRepository(Student) private studentRepo:Repository<Student>){}
 
   create(createStudentDto: CreateStudentDto) {
-    return this.studentRepo.save(createStudentDto);
+    return this.studentRepo.save(createStudentDto)
   }
 
   findAll() {

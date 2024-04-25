@@ -7,28 +7,26 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class TargetService {
-  constructor(
-    @InjectRepository(Target) private targetRepo: Repository<Target>,
-  ) {}
+  constructor(@InjectRepository(Target) private targetRepo:Repository<Target>){}
   create(createTargetDto: CreateTargetDto) {
-    return this.targetRepo.save(createTargetDto);
+     return this.targetRepo.save(createTargetDto)
   }
 
   findAll() {
-    return this.targetRepo.find({ relations: ['posts'] });
+    return this.targetRepo.find()
   }
 
   findOne(id: number) {
-    return this.targetRepo.findOne({ where: { id } });
+    return this.targetRepo.findOneBy({id})
   }
 
   async update(id: number, updateTargetDto: UpdateTargetDto) {
-    await this.targetRepo.update({ id }, updateTargetDto);
-    return this.findOne(id);
+    await this.targetRepo.update({id},updateTargetDto)
+    return this.findOne(id)
   }
 
   async remove(id: number) {
-    await this.targetRepo.delete({ id });
-    return id;
+   await this.targetRepo.delete({id})
+   return id
   }
 }

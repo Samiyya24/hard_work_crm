@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
@@ -9,31 +9,31 @@ import { Payment } from './entities/payment.entity';
 export class PaymentResolver {
   constructor(private readonly paymentService: PaymentService) {}
 
-  @Query(() => Payment)
+ 
+
+  @Query(()=>[Payment])
   findAllPayment() {
     return this.paymentService.findAll();
   }
 
-  @Query(() => Payment)
-  findOnePayment(@Args('id') id: number) {
-    return this.paymentService.findOne(+id);
+  @Query(()=>Payment)
+  findOnePayment(@Args('id',{type:()=>ID}) id: number) {
+    return this.paymentService.findOne(id);
   }
 
-  @Mutation(() => Payment)
+  @Mutation(()=>Payment)
   createPayment(@Args('createPayment') createPaymentDto: CreatePaymentDto) {
     return this.paymentService.create(createPaymentDto);
   }
 
-  @Mutation(() => Payment)
-  updatePayment(
-    @Args('id', { type: () => ID }) id: number,
-    @Args('updatePayment') updatePaymentDto: UpdatePaymentDto,
-  ) {
+  @Mutation(()=>Payment)
+  updatePayment(@Args('id',{type:()=>ID}) id: number,
+   @Args('updatePayment') updatePaymentDto: UpdatePaymentDto) {
     return this.paymentService.update(id, updatePaymentDto);
   }
 
-  @Mutation(() => Payment)
-  removePayment(@Args('id', { type: () => ID }) id: number) {
+  @Mutation(()=>Payment)
+  removePayment(@Args('id',{type:()=>ID}) id: number) {
     return this.paymentService.remove(id);
   }
 }

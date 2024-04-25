@@ -1,3 +1,4 @@
+
 import { StuffRoleService } from './stuff_role.service';
 import { CreateStuffRoleDto } from './dto/create-stuff_role.dto';
 import { UpdateStuffRoleDto } from './dto/update-stuff_role.dto';
@@ -8,33 +9,29 @@ import { StuffRole } from './entities/stuff_role.entity';
 export class StuffRoleResolver {
   constructor(private readonly stuffRoleService: StuffRoleService) {}
 
-  @Mutation(() => StuffRole)
-  createStuffRole(
-    @Args('createStuffRole') createStuffRoleDto: CreateStuffRoleDto,
-  ) {
+  @Mutation(()=>StuffRole)
+  createStuffRole(@Args('createStuffRole') createStuffRoleDto: CreateStuffRoleDto) {
     return this.stuffRoleService.create(createStuffRoleDto);
   }
 
-  @Query(() => [StuffRole])
+  @Query(()=>[StuffRole])
   findAllStuffRole() {
     return this.stuffRoleService.findAll();
   }
 
-  @Query(() => StuffRole)
-  findOneStuffRole(@Args('id') id: string) {
-    return this.stuffRoleService.findOne(+id);
+  @Query(()=>StuffRole)
+  findOneStuffRole(@Args('id',{type:()=>ID}) id: number) {
+    return this.stuffRoleService.findOne(id);
   }
 
-  @Mutation(() => StuffRole)
-  updateStuffRole(
-    @Args('id', { type: () => ID }) id: number,
-    @Args('updateStuffRole') updateStuffRoleDto: UpdateStuffRoleDto,
-  ) {
+  @Mutation(()=>StuffRole)
+  updateStuffRole(@Args('id',{type:()=>ID}) id:number, 
+  @Args("updateStuffRole") updateStuffRoleDto: UpdateStuffRoleDto) {
     return this.stuffRoleService.update(id, updateStuffRoleDto);
   }
 
-  @Mutation(() => ID)
-  removeStuffRole(@Args('id', { type: () => ID }) id: number) {
-    return this.stuffRoleService.remove(+id);
+  @Mutation(()=>StuffRole)
+  removeStuffRole(@Args('id',{type:()=>ID}) id: number) {
+    return this.stuffRoleService.remove(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Field, InputType } from "@nestjs/graphql"
+import { Field, InputType, } from "@nestjs/graphql"
 
 @InputType()
 export class CreateBranchDto {
@@ -6,6 +6,7 @@ export class CreateBranchDto {
     name:string
     @Field()
     address:string
+
     @Field()
     call_number:string
 }

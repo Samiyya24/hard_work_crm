@@ -15,11 +15,11 @@ export class StuffService {
 private readonly jwtService:JwtService){}
 
 /*********************************getToken******************************************** */
-async getTokens(stuff:Stuff) {  
+async getTokens(stuff:Stuff) {
   const payload = {
     id: stuff.id,
     is_active: stuff.is_active,
-    role:stuff.role
+    role:stuff.stuffRoles[0].roleId.name
   };
 
   const [accessToken, refreshToken] = await Promise.all([
@@ -50,20 +50,19 @@ const newStuff = await this.stuffRepo.save({ ...createStuffDto ,hashed_parol })
 // const tokens = await this.getTokens(newStuff)
 // const hashed_refresh_token = await bcrypt.hash(tokens.refreshToken,7)
 
-  // const updatedStuff = await this.stuffRepo.save({
-  //   ...newStuff,
-  //   hashed_refresh_token: hashed_refresh_token,
-  // });
+//   const updatedStuff = await this.stuffRepo.save({
+//     ...newStuff,
+//     hashed_refresh_token: hashed_refresh_token,
+//   });
 
-  // res.cookie('refresh_token', tokens.refreshToken, {
-  //   maxAge: 15 * 24 * 60 * 60 * 1000,
-  //   httpOnly: true,
-  // });
+//   res.cookie('refresh_token', tokens.refreshToken, {
+//     maxAge: 15 * 24 * 60 * 60 * 1000,
+//     httpOnly: true,
+//   });
   const responce = {
     message: 'Stuff registred',
     stuff: newStuff.first_name,
     id:newStuff.id,
-    // role:updatedStuff.role,
     // tokens,
   };
 
@@ -73,7 +72,9 @@ const newStuff = await this.stuffRepo.save({ ...createStuffDto ,hashed_parol })
 
 async login(loginStuffDto: LoginStuffDto, res: Response) {
   const {   login, parol } = loginStuffDto
-  const stuff = await this.stuffRepo.findOne({ where: { login }, relations:{stuffRoles:{roleId:true}} });
+  const stuff = await this.stuffRepo.findOne({ where: { login },relations:{stuffRoles:{roleId:true}} });
+  console.log(stuff.stuffRoles[0].roleId.name); // roli keldi
+  
 
   if (!stuff) {
     throw new BadRequestException('Stuff not found');
@@ -109,7 +110,7 @@ async login(loginStuffDto: LoginStuffDto, res: Response) {
   const responce = {
     message: 'Stuff logged in',
     stuff: updateStuff.first_name,
-    role:updateStuff.role,
+    role:updateStuff.hashed_refresh_token,
     tokens,
   };
 
@@ -182,7 +183,7 @@ async refreshToken(stuffId: number, refreshToken: string, res: Response) {
   const response = {
     message: 'Stuff refreshedToken',
     user: updateStuff.first_name,
-    role:updateStuff.role,
+    // role:updateStuff.role,
     tokens,
   };
   return response;

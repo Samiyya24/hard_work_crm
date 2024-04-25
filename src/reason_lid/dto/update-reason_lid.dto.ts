@@ -1,10 +1,11 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateReasonLidDto } from './create-reason_lid.dto';
-import { Field, InputType } from '@nestjs/graphql';
 
+
+
+import { Field, InputType, Int } from "@nestjs/graphql";
 
 @InputType()
-export class UpdateReasonLidDto extends PartialType(CreateReasonLidDto) {
-  @Field()
-  reason_lid?: string;
+export class UpdateReasonLidDto {
+
+    @Field(()=>Int,{nullable:true})
+    reason_lid?:string
 }

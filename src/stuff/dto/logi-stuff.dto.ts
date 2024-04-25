@@ -1,8 +1,10 @@
-import { Field, InputType } from "@nestjs/graphql"
+import { Field, InputType, ObjectType } from "@nestjs/graphql"
+
 @InputType()
 export class LoginStuffDto {
     @Field()
     login:string
+
     @Field()
     parol:string   
 }

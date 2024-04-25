@@ -1,9 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateLidStatusDto } from './create-lid_status.dto';
-import { Field, InputType } from '@nestjs/graphql';
+
+import { Field, InputType, ObjectType } from "@nestjs/graphql";
 
 @InputType()
-export class UpdateLidStatusDto extends PartialType(CreateLidStatusDto) {
-  @Field({nullable:true})
-  status?: string;
+export class UpdateLidStatusDto {
+    
+    @Field({nullable:true})
+    status?:string
 }

@@ -1,7 +1,8 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType } from "@nestjs/graphql";
 
 @InputType()
-export class UpdateTargetDto  {
-  @Field({ nullable: true })
-  name: string;
+export class UpdateTargetDto{
+    
+    @Field({nullable:true})
+    name?:string
 }

@@ -20,7 +20,6 @@ import { PaymentModule } from './payment/payment.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
@@ -60,7 +59,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     LessonModule,
     StudentGroupModule,
     StudentLessonModule,
-    // StudentsModule,
+    StudentsModule,
     PaymentModule,
   ],
   controllers: [],

@@ -1,12 +1,3 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
 import { StudentGroupService } from './student_group.service';
 import { CreateStudentGroupDto } from './dto/create-student_group.dto';
 import { UpdateStudentGroupDto } from './dto/update-student_group.dto';
@@ -17,33 +8,28 @@ import { StudentGroup } from './entities/student_group.entity';
 export class StudentGroupResolver {
   constructor(private readonly studentGroupService: StudentGroupService) {}
 
-  @Query(() => [StudentGroup])
+  @Query(()=>[StudentGroup])
   findAllStudentGroup() {
     return this.studentGroupService.findAll();
   }
 
-  @Query(() => StudentGroup)
-  findOneStudentGroup(@Args('id') id: number) {
-    return this.studentGroupService.findOne(+id);
+  @Query(()=>StudentGroup)
+  findOneStudentGroup(@Args('id',{type:()=>ID}) id:number) {
+    return this.studentGroupService.findOne(id);
   }
 
-  @Mutation(() => StudentGroup)
-  createStudentGroup(
-    @Args('createStudentGroup') createStudentGroupDto: CreateStudentGroupDto,
-  ) {
+  @Mutation(()=>StudentGroup)
+  createStudentGroup(@Args('createStudentGroup') createStudentGroupDto: CreateStudentGroupDto) {
     return this.studentGroupService.create(createStudentGroupDto);
   }
-
-  @Mutation(() => StudentGroup)
-  updateStudentGroup(
-    @Args('id', { type: () => ID }) id: number,
-    @Args('updateStudentGroup') updateStudentGroupDto: UpdateStudentGroupDto,
-  ) {
+  @Mutation(()=>StudentGroup)
+  updateStudentGroup(@Args('id',{type:()=>ID}) id: number, 
+  @Args('updateStudentGroup') updateStudentGroupDto: UpdateStudentGroupDto) {
     return this.studentGroupService.update(id, updateStudentGroupDto);
   }
 
-  @Mutation(() => StudentGroup)
-  removeStudentGroup(@Args('id', { type: () => ID }) id: number) {
+  @Mutation(()=>StudentGroup)
+  removeStudentGroup(@Args('id',{type:()=>ID}) id: number) {
     return this.studentGroupService.remove(id);
   }
 }

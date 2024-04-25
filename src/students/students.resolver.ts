@@ -9,30 +9,30 @@ import { Student } from './entities/student.entity';
 export class StudentsResolver {
   constructor(private readonly studentsService: StudentsService) {}
 
-  @Mutation(() => Student)
-  createStudent(@Args('createStudent') createStudentDto: CreateStudentDto) {
-    return this.studentsService.create(createStudentDto);
-  }
 
-  @Query(() => [Student])
-  findAll() {
+  @Query(()=>[Student])
+  findAllStudent() {
     return this.studentsService.findAll();
   }
 
-  @Query(() => Student)
-  findOneStudent(@Args('id', { type: () => ID }) id: number) {
+  @Query(()=>Student)
+  findOneStudent(@Args('id',{type:()=>ID}) id: number) {
     return this.studentsService.findOne(id);
   }
 
-  @Mutation(() => Student)
-  updateStudent(
-    @Args('id', { type: () => ID }) id: number,
-    @Args('updateStudent') updateStudentDto: UpdateStudentDto,
-  ) {
-    return this.studentsService.update(+id, updateStudentDto);
+
+  
+  @Mutation(()=>Student)
+  createStudent(@Args('createStudent') createStudentDto: CreateStudentDto) {
+    return this.studentsService.create(createStudentDto);
+  }
+  @Mutation(()=>Student)
+  updateStudent(@Args('id',{type:()=>ID}) id: number,
+   @Args('updateStudent') updateStudentDto: UpdateStudentDto) {
+    return this.studentsService.update(id, updateStudentDto);
   }
 
-  @Mutation(() => Student)
+  @Mutation(()=>Student)
   removeStudent(@Args('id',{type:()=>ID}) id: number) {
     return this.studentsService.remove(id);
   }

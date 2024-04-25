@@ -1,7 +1,8 @@
-import { Field, InputType } from "@nestjs/graphql";
+import { Field, InputType, Int, ObjectType } from "@nestjs/graphql";
+
 
 @InputType()
 export class CreateReasonLidDto {
-    @Field()
+    @Field(()=>Int)
     reason_lid:string
 }

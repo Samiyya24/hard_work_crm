@@ -4,11 +4,10 @@ import { ReasonLidController } from './reason_lid.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReasonLid } from './entities/reason_lid.entity';
 import { ReasonLidResolver } from './reason_lid.resolver';
-import { Lid } from '../lid/entities/lid.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([ReasonLid, Lid])],
+  imports:[TypeOrmModule.forFeature([ReasonLid])],
   controllers: [ReasonLidController],
-  providers: [ReasonLidService, ReasonLidResolver],
+  providers: [ReasonLidService,ReasonLidResolver],
 })
 export class ReasonLidModule {}

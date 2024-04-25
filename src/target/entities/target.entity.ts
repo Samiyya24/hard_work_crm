@@ -1,34 +1,20 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Lid } from 'src/lid/entities/lid.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Lid } from "src/lid/entities/lid.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
 export class Target {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn()
-  id: number;
 
-  @Field({ nullable: true })
-  @Column()
-  name: string;
+    @Field(()=>ID)
+    @PrimaryGeneratedColumn()
+    id:number
 
-  @Field()
-  @CreateDateColumn()
-  createdAt: Date;
+    @Field()
+    @Column()
+    name:string
 
-  @Field()
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @OneToMany(() => Lid, (data) => data.target_id)
-  @Field(() => Lid)
-  targets: Lid[];
+    @OneToMany(()=>Lid,(data)=>data.target_id)
+    @Field(()=>[Lid])
+    targets:Lid[]
 }

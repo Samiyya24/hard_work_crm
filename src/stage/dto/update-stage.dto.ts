@@ -1,9 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateStageDto } from './create-stage.dto';
-import { Field, InputType } from '@nestjs/graphql';
+
+import { Field, InputType, ObjectType } from "@nestjs/graphql";
 
 @InputType()
-export class UpdateStageDto extends PartialType(CreateStageDto) {
-  @Field()
-  name?: string;
+export class UpdateStageDto {
+    @Field({nullable:true})
+    name?:string
 }

@@ -4,11 +4,10 @@ import { LidStatusController } from './lid_status.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LidStatus } from './entities/lid_status.entity';
 import { LidStatusResolver } from './lid_status.resolver';
-import { Lid } from '../lid/entities/lid.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([LidStatus, Lid])],
+  imports:[TypeOrmModule.forFeature([LidStatus])],
   controllers: [LidStatusController],
-  providers: [LidStatusService, LidStatusResolver],
+  providers: [LidStatusService,LidStatusResolver],
 })
 export class LidStatusModule {}

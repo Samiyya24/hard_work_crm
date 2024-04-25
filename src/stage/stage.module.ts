@@ -4,12 +4,10 @@ import { StageController } from './stage.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Stage } from './entities/stage.entity';
 import { StageResolver } from './stage.resolver';
-import { Lid } from '../lid/entities/lid.entity';
-import { Group } from '../group/entities/group.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Stage, Lid, Group])],
+  imports:[TypeOrmModule.forFeature([Stage])],
   controllers: [StageController],
-  providers: [StageService, StageResolver],
+  providers: [StageService,StageResolver],
 })
 export class StageModule {}
