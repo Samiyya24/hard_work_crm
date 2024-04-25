@@ -15,7 +15,7 @@ export class StuffService {
 private readonly jwtService:JwtService){}
 
 /*********************************getToken******************************************** */
-async getTokens(stuff:Stuff) {
+async getTokens(stuff:Stuff) {  
   const payload = {
     id: stuff.id,
     is_active: stuff.is_active,
@@ -40,31 +40,31 @@ async getTokens(stuff:Stuff) {
 
 /*******************************************Registration************************************************************/
 
-async create(createStuffDto: CreateStuffDto,res: Response) {
+async create(createStuffDto: CreateStuffDto) {
 const{parol,confirm_parol} = createStuffDto
 if(parol!==confirm_parol){
   throw new BadRequestException("Parols do not much")
 }
 const hashed_parol = await bcrypt.hash(parol,7)
 const newStuff = await this.stuffRepo.save({ ...createStuffDto ,hashed_parol })
-const tokens = await this.getTokens(newStuff)
-const hashed_refresh_token = await bcrypt.hash(tokens.refreshToken,7)
+// const tokens = await this.getTokens(newStuff)
+// const hashed_refresh_token = await bcrypt.hash(tokens.refreshToken,7)
 
-  const updatedStuff = await this.stuffRepo.save({
-    ...newStuff,
-    hashed_refresh_token: hashed_refresh_token,
-  });
+  // const updatedStuff = await this.stuffRepo.save({
+  //   ...newStuff,
+  //   hashed_refresh_token: hashed_refresh_token,
+  // });
 
-  res.cookie('refresh_token', tokens.refreshToken, {
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-  });
+  // res.cookie('refresh_token', tokens.refreshToken, {
+  //   maxAge: 15 * 24 * 60 * 60 * 1000,
+  //   httpOnly: true,
+  // });
   const responce = {
     message: 'Stuff registred',
-    stuff: updatedStuff.first_name,
-    id:updatedStuff.id,
-    role:updatedStuff.role,
-    tokens,
+    stuff: newStuff.first_name,
+    id:newStuff.id,
+    // role:updatedStuff.role,
+    // tokens,
   };
 
  return responce
@@ -73,7 +73,7 @@ const hashed_refresh_token = await bcrypt.hash(tokens.refreshToken,7)
 
 async login(loginStuffDto: LoginStuffDto, res: Response) {
   const {   login, parol } = loginStuffDto
-  const stuff = await this.stuffRepo.findOne({ where: { login } });
+  const stuff = await this.stuffRepo.findOne({ where: { login }, relations:{stuffRoles:{roleId:true}} });
 
   if (!stuff) {
     throw new BadRequestException('Stuff not found');

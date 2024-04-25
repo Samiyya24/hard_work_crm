@@ -1,3 +1,4 @@
+import { Field } from "@nestjs/graphql";
 import { Stuff } from "src/stuff/entities/stuff.entity";
 import { StuffRole } from "src/stuff_role/entities/stuff_role.entity";
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -5,16 +6,14 @@ import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColum
 
 @Entity()
 export class Role {
-    @PrimaryGeneratedColumn()
-    id:number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name:string
+  @Column()
+  name: string;
 
-    @OneToMany((type) => StuffRole,(data)=>data.roleId)
-    stuffes: StuffRole[]
+  @OneToMany((type) => StuffRole, (data) => data.roleId)
+  @Field(() => [StuffRole])
+  stuffes: StuffRole[];
 
-    // @ManyToMany(() => Stuff,(data)=>data.roles,{cascade:true})
-    // @JoinTable()
-    // stuffs: Stuff[]
 }

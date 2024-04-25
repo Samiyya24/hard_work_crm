@@ -1,13 +1,17 @@
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
-import * as cookieParser from "cookie-parser";
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
+import { ConfigService } from '@nestjs/config';
 
 const start = async () => {
-  const PORT = process.env.PORT;
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix("api");
+  const config = app.get(ConfigService)
+
+  const PORT = config.get<number>('PORT');
+  app.setGlobalPrefix('api');
   app.use(cookieParser());
-  await app.listen(PORT, () => {
+  
+  await app.listen(PORT || 3050, () => {
     console.log(`Server started at ${PORT}`);
   });
 };

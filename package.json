@@ -29,10 +29,13 @@
     "@nestjs/typeorm": "^10.0.2",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
+    "@nestjs/graphql": "^12.1.1",
+    "mysql2": "^3.9.7",
     "pg": "^8.11.5",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "@nestjs/apollo": "^12.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
