@@ -32,7 +32,7 @@ export class TargetResolver {
     return this.targetService.update(id, updateTargetDto);
   }
 
-  @Mutation(() => ID)
+  @Mutation(() => Target)
   removeTarget(@Args('id', { type: () => ID }) id: number) {
     return this.targetService.remove(id);
   }

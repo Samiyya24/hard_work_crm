@@ -1,16 +1,20 @@
-import { Group } from "src/group/entities/group.entity"
-import { Stuff } from "src/stuff/entities/stuff.entity"
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Group } from 'src/group/entities/group.entity';
+import { Stuff } from 'src/stuff/entities/stuff.entity';
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-
+@ObjectType()
 @Entity()
 export class GroupStuff {
-@PrimaryGeneratedColumn()
-id:number
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id: number;
 
-@ManyToOne(()=>Group,(data)=>data.groupStuffs)
-    group_id:Group
+  @ManyToOne(() => Group, (data) => data.groupStuffs)
+  @Field(() => [Group], { nullable: true })
+  group_id: Group;
 
-@ManyToOne(()=>Stuff,(data)=>data.stuffGroup)
-    stuff_id:Stuff
+  @ManyToOne(() => Stuff, (data) => data.stuffGroup)
+  @Field(() => [Stuff], { nullable: true })
+  stuff_id: Stuff;
 }

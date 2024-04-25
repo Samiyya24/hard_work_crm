@@ -1,22 +1,38 @@
-import { Group } from "src/group/entities/group.entity";
-import { StudentLesson } from "src/student_lesson/entities/student_lesson.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Group } from 'src/group/entities/group.entity';
+import { StudentLesson } from 'src/student_lesson/entities/student_lesson.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
+@ObjectType()
 @Entity()
 export class Lesson {
-@PrimaryGeneratedColumn()
-id:number
-@Column()
-lesson_theme:string
-@Column()
-lesson_number:number
-@ManyToOne(()=>Group,(data)=>data.lessons)
-group_id:Group
-@Column()
-lesson_date:Date
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id: number;
 
-@OneToMany(()=>StudentLesson,(data)=>data.lesson_id)
-studentLessons:StudentLesson[]
+  @Field()
+  @Column()
+  lesson_theme: string;
 
+  @Field()
+  @Column()
+  lesson_number: number;
 
+  @ManyToOne(() => Group, (data) => data.lessons)
+  @Field(() => [Group], { nullable: true })
+  group_id: Group;
+
+  @Field()
+  @Column()
+  lesson_date: Date;
+
+  @OneToMany(() => StudentLesson, (data) => data.lesson_id)
+  @Field(() => [StudentLesson], { nullable: true })
+  studentLessons: StudentLesson[];
 }

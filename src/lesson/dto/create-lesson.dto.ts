@@ -1,6 +1,13 @@
+import { Field, InputType } from '@nestjs/graphql';
+
+@InputType()
 export class CreateLessonDto {
-    lesson_theme:string
-    lesson_number:number
-    group_id:object
-    lesson_date:Date
+  @Field()
+  lesson_theme: string;
+  @Field()
+  lesson_number: number;
+  @Field()
+  group_id: object;
+  @Field()
+  lesson_date: Date;
 }

@@ -1,45 +1,64 @@
-import { Branch } from "src/branch/entities/branch.entity";
-import { GroupStuff } from "src/group_stuff/entities/group_stuff.entity";
-import { Lesson } from "src/lesson/entities/lesson.entity";
-import { Stage } from "src/stage/entities/stage.entity";
-import { StudentGroup } from "src/student_group/entities/student_group.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ID } from '@nestjs/graphql';
+import { Branch } from 'src/branch/entities/branch.entity';
+import { GroupStuff } from 'src/group_stuff/entities/group_stuff.entity';
+import { Lesson } from 'src/lesson/entities/lesson.entity';
+import { Stage } from 'src/stage/entities/stage.entity';
+import { StudentGroup } from 'src/student_group/entities/student_group.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Group {
-    @PrimaryGeneratedColumn()
-    id:number
+  @Field(() => ID)
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Field()
+  @Column()
+  group_name: string;
+  @Field()
+  @Column()
+  lesson_start_time: string;
+  @Field()
+  @Column()
+  lesson_continuous: string;
+  @Field()
+  @Column()
+  lesson_week_day: string;
 
-    @Column()
-    group_name:string
-    @Column()
-    lesson_start_time:string
-    @Column()
-    lesson_continuous:string
-    @Column()
-    lesson_week_day:string
+  @ManyToOne(() => Stage, (data) => data.group_stages)
+  @Field(() => [Stage], { nullable: true })
+  group_stage_id: Promise<Stage[]>;
+  @Field()
+  @Column()
+  room_number: number;
+  @Field()
+  @Column()
+  room_floor: number;
 
-    @ManyToOne(()=>Stage,(data)=>data.group_stages)
-    group_stage_id:Stage
+  @ManyToOne(() => Branch, (data) => data.branches)
+  @Field(() => [Branch], { nullable: true })
+  branch_id: Promise<Branch[]>;
+  @Field()
+  @Column()
+  lessons_quant: number;
+  @Field()
+  @Column()
+  is_active: boolean;
 
-    @Column()
-    room_number:number
-    @Column()
-    room_floor:number
+  @OneToMany(() => GroupStuff, (data) => data.group_id)
+  @Field(() => [GroupStuff], { nullable: true })
+  groupStuffs: Promise<GroupStuff[]>;
 
-    @ManyToOne(()=>Branch,(data)=>data.branches)
-    branch_id:Branch
+  @OneToMany(() => Lesson, (data) => data.group_id)
+  @Field(() => [Lesson], { nullable: true })
+  lessons: Promise<Lesson[]>;
 
-    @Column()
-    lessons_quant:number
-    @Column()
-    is_active:boolean
-
-    @OneToMany(()=>GroupStuff,(data)=>data.group_id)
-    groupStuffs:GroupStuff[]
-    @OneToMany(()=>Lesson,(data)=>data.group_id)
-    lessons:Lesson[]
-    @OneToMany(()=>StudentGroup,(data)=>data.group_id)
-    studentGroup:StudentGroup[]
-
+  @OneToMany(() => StudentGroup, (data) => data.group_id)
+  @Field(() => [StudentGroup], { nullable: true })
+  studentGroup: Promise<StudentGroup[]>;
 }

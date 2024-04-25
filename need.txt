@@ -1,0 +1,9 @@
+---------------------ONE-TO-MANY-------------------------------------
+  @OneToMany(() => Team, (team) => team.members)
+  @Field((type) => [Team], { nullable: true })
+  teams: Promise<Team[]>;
+  
+---------------------MANY-TO-ONE-------------------------------------
+  @ManyToOne(() => User, (user) => user.teams)
+  @Field((type) => [User], { nullable: true })
+  members: Promise<User[]>;
