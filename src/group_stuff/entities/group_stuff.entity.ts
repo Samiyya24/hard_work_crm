@@ -11,10 +11,10 @@ export class GroupStuff {
   id: number;
 
   @ManyToOne(() => Group, (data) => data.groupStuffs)
-  @Field(() => [Group], { nullable: true })
+  @Field(() => Group)
   group_id: Group;
 
   @ManyToOne(() => Stuff, (data) => data.stuffGroup)
-  @Field(() => [Stuff], { nullable: true })
+  @Field(() => Stuff)
   stuff_id: Stuff;
 }

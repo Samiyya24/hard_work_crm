@@ -32,11 +32,11 @@ export class Lid {
   phone_number: string;
 
   @ManyToOne(() => Target, (data) => data.targets)
-  @Field(() => [Target], { nullable: true })
+  @Field(() => Target)
   target_id: Target;
 
   @ManyToOne(() => Stage, (data) => data.stages)
-  @Field(() => [Stage], { nullable: true })
+  @Field(() => Stage)
   stage_id: Stage;
 
   @Field()
@@ -55,20 +55,16 @@ export class Lid {
   @Column()
   trial_lesson_group_id: number;
 
-  @Field()
   @ManyToOne(() => LidStatus, (data) => data.lidStatus)
-  @Field(() => [LidStatus], { nullable: true })
-
+  @Field(() => LidStatus)
   lid_status_id: LidStatus;
 
-  @Field()
   @ManyToOne(() => ReasonLid, (data) => data.reasons_lid)
-  @Field(() => [ReasonLid], { nullable: true })
-
+  @Field(() => ReasonLid)
   reason_lid_id: ReasonLid;
 
   @Field()
   @OneToMany(() => Student, (data) => data.lid_id)
-  @Field(() => [Student], { nullable: true })
+  @Field(() => Student)
   students: Student[];
 }

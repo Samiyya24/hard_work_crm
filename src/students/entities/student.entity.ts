@@ -15,43 +15,43 @@ import {
 @ObjectType()
 @Entity()
 export class Student {
-  @Field(()=>ID)
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
   @ManyToOne(() => Lid, (data) => data.students)
-  lid_id: Lid[];
-  
+  @Field(() => Lid)
+  lid_id: Lid
+
   @Field()
   @Column()
   first_name: string;
-  
+
   @Field()
   @Column()
   last_name: string;
-  
+
   @Field()
   @Column()
   phone_number: string;
-  
+
   @Field()
   @Column()
   bith_date: string;
-  
+
   @Field()
   @Column()
   gender: string;
 
   @OneToMany(() => StudentGroup, (data) => data.student_id)
-  @Field(() => [StudentGroup])
+  @Field(() => StudentGroup)
   studentGroups: StudentGroup[];
-  
+
   @OneToMany(() => StudentLesson, (data) => data.student_id)
-  @Field(() => [StudentLesson])
+  @Field(() => StudentLesson)
   studentsLessons: StudentLesson[];
- 
+
   @OneToMany(() => Payment, (data) => data.student_id)
-  @Field(() => [Payment])
+  @Field(() => Payment)
   payments: Payment[];
 }

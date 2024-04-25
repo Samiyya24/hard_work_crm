@@ -10,8 +10,8 @@ export class Payment {
   id: number;
 
   @ManyToOne(() => Student, (data) => data.payments)
-  @Field(() => [Student], { nullable: true })
-  student_id: Promise<Student[]>;
+  @Field(() => Student)
+  student_id: Student
 
   @Field()
   @Column()

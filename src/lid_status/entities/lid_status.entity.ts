@@ -13,6 +13,6 @@ export class LidStatus {
   status: string;
 
   @OneToMany(() => Lid, (data) => data.lid_status_id)
-  @Field(() => [Lid], { nullable: true })
+  @Field(() => Lid)
   lidStatus: Lid[];
 }

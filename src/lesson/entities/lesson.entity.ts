@@ -25,7 +25,7 @@ export class Lesson {
   lesson_number: number;
 
   @ManyToOne(() => Group, (data) => data.lessons)
-  @Field(() => [Group], { nullable: true })
+  @Field(() => Group)
   group_id: Group;
 
   @Field()
@@ -33,6 +33,6 @@ export class Lesson {
   lesson_date: Date;
 
   @OneToMany(() => StudentLesson, (data) => data.lesson_id)
-  @Field(() => [StudentLesson], { nullable: true })
+  @Field(() => StudentLesson)
   studentLessons: StudentLesson[];
 }

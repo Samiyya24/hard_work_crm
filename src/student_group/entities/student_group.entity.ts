@@ -13,11 +13,11 @@ export class StudentGroup {
 
   @Field()
   @ManyToOne(() => Student, (data) => data.studentGroups)
-  @Field(() => [Student])
+  @Field(() => Student)
   student_id: Student;
 
   @Field()
   @ManyToOne(() => Group, (data) => data.studentGroup)
-  @Field(() => [Group])
+  @Field(() => Group)
   group_id: Group;
 }

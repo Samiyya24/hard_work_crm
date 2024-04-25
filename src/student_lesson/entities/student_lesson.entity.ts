@@ -12,12 +12,12 @@ export class StudentLesson {
 
   @Field()
   @ManyToOne(() => Lesson, (data) => data.studentLessons)
-  @Field(() => [Lesson])
+  @Field(() => Lesson)
   lesson_id: Lesson;
 
   @Field()
   @ManyToOne(() => Student, (data) => data.studentsLessons)
-  @Field(() => [Student])
+  @Field(() => Student)
   student_id: Student;
 
   @Field()

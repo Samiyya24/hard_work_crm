@@ -14,6 +14,6 @@ export class ReasonLid {
     reason_lid:string
 
     @OneToMany(()=>Lid,(data)=>data.reason_lid_id)
-    @Field(()=>[Lid])
+    @Field(()=>Lid)
     reasons_lid:Lid[]
 }

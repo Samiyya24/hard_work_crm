@@ -1,9 +1,14 @@
 ---------------------ONE-TO-MANY-------------------------------------
-  @OneToMany(() => Team, (team) => team.members)
-  @Field((type) => [Team], { nullable: true })
-  teams: Promise<Team[]>;
+    @OneToMany(()=>Student,(data)=>data.lid_id)
+    @Field(()=>Student)
+    students:Student[]
   
 ---------------------MANY-TO-ONE-------------------------------------
-  @ManyToOne(() => User, (user) => user.teams)
-  @Field((type) => [User], { nullable: true })
-  members: Promise<User[]>;
+    @ManyToOne(()=>ReasonLid,(data)=>data.reasons_lid)
+    @Field(()=>ReasonLid)
+    reason_lid_id:ReasonLid
+
+
+
+  
+    

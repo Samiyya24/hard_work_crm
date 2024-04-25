@@ -29,6 +29,6 @@ export class Target {
   updatedAt: Date;
 
   @OneToMany(() => Lid, (data) => data.target_id)
-  @Field(() => [Lid])
+  @Field(() => Lid)
   targets: Lid[];
 }

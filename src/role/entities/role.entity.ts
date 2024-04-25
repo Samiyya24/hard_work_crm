@@ -16,7 +16,7 @@ export class Role {
   name: string;
 
   @OneToMany((type) => StuffRole, (data) => data.roleId)
-  @Field(() => [StuffRole])
+  @Field(() => StuffRole)
   stuffes: StuffRole[];
 
 }

@@ -15,10 +15,10 @@ export class Stage {
     name:string
 
     @OneToMany(()=>Lid,(data)=>data.stage_id)
-    @Field(()=>[Lid])
+    @Field(()=>Lid)
     stages:Lid[]
 
     @OneToMany(()=>Group,(data)=>data.group_stage_id)
-    @Field(()=>[Group])
+    @Field(()=>Group)
     group_stages:Group[]
 }

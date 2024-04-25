@@ -22,6 +22,6 @@ export class Branch {
   call_number: string;
 
   @OneToMany(() => Group, (data) => data.branch_id)
-  @Field(() => [Group], { nullable: true })
-  branches: Promise<Group[]>;
+  @Field(() => Group)
+  branches: Group[];
 }

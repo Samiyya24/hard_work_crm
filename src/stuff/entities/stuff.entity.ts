@@ -41,10 +41,10 @@ export class Stuff {
   is_active: boolean;
 
   @OneToMany(() => StuffRole, (data) => data.stuffId)
-  @Field(() => [StuffRole])
+  @Field(() => StuffRole)
   stuffRoles: StuffRole[];
 
   @OneToMany(() => GroupStuff, (data) => data.stuff_id)
-  @Field(() => [GroupStuff])
+  @Field(() => GroupStuff)
   stuffGroup: GroupStuff[];
 }

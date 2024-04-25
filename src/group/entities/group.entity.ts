@@ -31,8 +31,9 @@ export class Group {
   lesson_week_day: string;
 
   @ManyToOne(() => Stage, (data) => data.group_stages)
-  @Field(() => [Stage], { nullable: true })
-  group_stage_id: Promise<Stage[]>;
+  @Field(() => Stage)
+  group_stage_id: Stage;
+
   @Field()
   @Column()
   room_number: number;
@@ -41,8 +42,9 @@ export class Group {
   room_floor: number;
 
   @ManyToOne(() => Branch, (data) => data.branches)
-  @Field(() => [Branch], { nullable: true })
-  branch_id: Promise<Branch[]>;
+  @Field(() => Branch)
+  branch_id: Branch;
+
   @Field()
   @Column()
   lessons_quant: number;
@@ -51,14 +53,14 @@ export class Group {
   is_active: boolean;
 
   @OneToMany(() => GroupStuff, (data) => data.group_id)
-  @Field(() => [GroupStuff], { nullable: true })
-  groupStuffs: Promise<GroupStuff[]>;
+  @Field(() => GroupStuff)
+  groupStuffs: GroupStuff[]
 
   @OneToMany(() => Lesson, (data) => data.group_id)
-  @Field(() => [Lesson], { nullable: true })
-  lessons: Promise<Lesson[]>;
+  @Field(() => Lesson)
+  lessons: Lesson[]
 
   @OneToMany(() => StudentGroup, (data) => data.group_id)
-  @Field(() => [StudentGroup], { nullable: true })
-  studentGroup: Promise<StudentGroup[]>;
+  @Field(() => StudentGroup)
+  studentGroup: StudentGroup[]
 }

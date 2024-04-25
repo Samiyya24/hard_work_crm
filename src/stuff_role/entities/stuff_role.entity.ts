@@ -11,10 +11,10 @@ export class StuffRole {
   id: number;
 
   @ManyToOne(() => Role, (data) => data.stuffes)
-  @Field(() => [Role])
+  @Field(() => Role)
   roleId: Role;
 
   @ManyToOne(() => Stuff, (data) => data.stuffRoles)
-  @Field(() => [Stuff])
+  @Field(() => Stuff)
   stuffId: Stuff;
 }
