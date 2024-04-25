@@ -1,10 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreatePaymentDto } from './create-payment.dto';
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class UpdatePaymentDto extends PartialType(CreatePaymentDto) {
-  @Field({nullable:true})
+  @Field(() => Int, {nullable:true})
   student_id?: object;
   @Field({nullable:true})
   payment_last_date?: Date;

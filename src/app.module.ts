@@ -60,7 +60,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     LessonModule,
     StudentGroupModule,
     StudentLessonModule,
-    StudentsModule,
+    // StudentsModule,
     PaymentModule,
   ],
   controllers: [],

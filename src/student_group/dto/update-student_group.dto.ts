@@ -1,11 +1,11 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateStudentGroupDto } from './create-student_group.dto';
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateStudentGroupDto extends PartialType(CreateStudentGroupDto) {
-  @Field({nullable:true})
+  @Field(() => Int, {nullable:true})
   student_id?: object;
-  @Field({nullable:true})
+  @Field(() => Int, {nullable:true})
   group_id?: object;
 }
