@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 5432
+      PGDATA: /data/postgres
+      POSTGRES_DB: hardWork_CRM
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5332:5332"
+  app:
+    container_name: nest-graphql
+    build: .
+    image: hardworkcrm-app
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    ports:
+      - ${LOCAL_PORT}:${PORT}
+    environment:
+      - API_PORT=${PORT}
+      - API_LOCAL_PORT=${LOCAL_PORT}
+      - TYPEORM_CONNECTION=${POSTGRES_CONNECTION}
+      - TYPEORM_USERNAME=${POSTGRES_USER}
+      - TYPEORM_PASSWORD=${POSTGRES_PASSWORD}
+      - TYPEORM_DATABASE=${POSTGRES_DATABASE}
+      - TYPEORM_PORT=${POSTGRES_PORT}
+      - TYPEORM_LOCAL_PORT=${POSTGRES_LOCAL_PORT}
+      - TYPEORM_HOST=postgres
